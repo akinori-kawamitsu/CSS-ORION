@@ -1,5 +1,6 @@
 # CSS-ORION
 Most useful and flexible CSS framework
+※制作中
 
 ## 制作の背景
 Bootstrap や Foundation を参考に独自のCSSフレームワーク komitsuboshi-css を作ったが、部品関係（グローバルメニューなど）は使わない場面も多かった。  
@@ -24,21 +25,21 @@ Bootstrap や Foundation を参考に独自のCSSフレームワーク komitsubo
 - ターゲットブラウザは最新バージョンとし、レガシーブラウザはオプションで対応（ターゲットブラウザをコーディング時に変更できる）
 - 頻繁に使う機会の多い定型的なコードはクラス一つで対応できるようにする
 
+# 仕様案
 
 ## グリッドシステム
-12+2グリッド。すなわち、基本は12グリッドシステムで、12グリッドでカバーできないn/5, n/7を追加した。
+12+2グリッド。すなわち、基本は12グリッドシステムで、12グリッドではカバーできないn/5, n/7を追加。
 
 表記パターンはkomitsuboshi-css, leccsと共通。
 
-グリッドの親要素は float, flex, flex-r, table の4種。
+offset機能を追加
+
+グリッドの親要素は float, flex, flex-r, table の4種。（tableは実装検討中）
 
 グリッドの子要素の書き方は　col-[target]-[n]\[r]
-
-[target]: sp(～550px), tab(～770px), pc(771px～)
-
-[n]: 1～12, 1by5, 2by5, 3by5, 4by5, 1by7, 2by7, 3by7, 4by7, 5by7, 6by7
-
-[r]: floatレイアウトで右詰めにしたい場合は末尾にrを付ける。（ｒの前にハイフンは付けない）
+[target] : sp(～550px), tab(～770px), pc(771px～)  
+[n] : 1～12, 1by5, 2by5, 3by5, 4by5, 1by7, 2by7, 3by7, 4by7, 5by7, 6by7  
+[r] : floatレイアウトで右詰めにしたい場合は末尾にrを付ける。（ｒの前にハイフンは付けない）
 
 ## パーツ類
 | クラス名　| 役割 |
@@ -51,6 +52,24 @@ Bootstrap や Foundation を参考に独自のCSSフレームワーク komitsubo
 | tab, tab-inline | 画面幅～770px以下でのみ表示。 |
 | tab-only, tab-only-inline | 画面幅551~770pxでのみ表示 |
 | pc, pc-inline | 画面幅771px以上でのみ表示。 |
-| container | 画面幅960px以上で両側にマージンを入れる。 |
+| container | 画面幅960px以上で両側にマージンを入れる。（中央配置） |
 
 ※随時追加
+
+## 各機能が持つ特徴
+### float
+グリッドの子要素を格納する。ガターの幅に応じて幅を拡張。clearfixでデザイン崩れを防ぐ役割を担う。
+
+### flex, flex-r
+floatの代替でalign-items: stretch;のflexboxレイアウトを作る。デフォルトは左詰めで-rは右詰め。
+
+### table
+テーブルレイアウトにする。子要素にはdisplay:table-cell;が設定される。
+
+### col-
+グリッドの子要素の占有幅を設定する。  
+デフォルトのpaddingは0で、必要な場合は個々に設定する。
+デフォルトのmarginも0で、こちらは親要素でfloat, flex, flex-rとともに設定する。
+
+### gutter-
+float, flex, flex-rの要素に設定する。子要素のガター（margin）を設定するクラス。詳細未定。
